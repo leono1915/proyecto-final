@@ -33,7 +33,13 @@ class ClientesController extends Controller
         
     }
     public function ver(){
+     
+
         $user=User::findOrfail(1);
+       /* if($user['token']=='no'){
+         echo 'simona';
+        } 
+        dd($user);*/
         return $user->toJson();
     }
     /**
