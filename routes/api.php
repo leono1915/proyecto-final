@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
+Route::get('cliente', 'ClientesController@ver');
+Route::post('productos', 'ProductosController@store');
+Route::get('productos', 'ProductosController@show');
+Route::get('productos/{id}', 'ProductosController@showProduct');
+Route::put('producto/modificar/{id}', 'ProductosController@update');

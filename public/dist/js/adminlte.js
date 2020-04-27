@@ -3,7 +3,11 @@
  * Copyright 2014-2020 Colorlib <http://colorlib.com>
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
+
 (function (global, factory) {
+
+  
+  console.log('funciono;')
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (global = global || self, factory(global.adminlte = {}));
@@ -15,6 +19,9 @@
    * License MIT
    * --------------------------------------------
    */
+  
+  
+  
   var ControlSidebar = function ($) {
     /**
      * Constants
@@ -61,7 +68,7 @@
      * Class Definition
      * ====================================================
      */
-
+    
     var ControlSidebar =
     /*#__PURE__*/
     function () {
@@ -1837,3 +1844,5 @@
 
 })));
 //# sourceMappingURL=adminlte.js.map
+
+
