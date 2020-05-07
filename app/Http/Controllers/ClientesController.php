@@ -16,7 +16,7 @@ class ClientesController extends Controller
     public function index()
     {
         //
-        return view('welcome');
+        return  Clientes::paginate(5)->toJson();
     }
 
     /**

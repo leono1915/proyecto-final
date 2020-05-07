@@ -15,7 +15,14 @@ class ProductosController extends Controller
     public function index()
     {
         //
-        return view('productos');
+       // return view('productos');
+       return Productos::paginate(50)->toJson();
+    }
+    public function view()
+    {
+        //
+       return view('productos');
+       
     }
 
     /**
@@ -68,12 +75,8 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function show(Productos $productos)
-    {
-        //
-        return $productos::paginate(5)->toJson();
-    }
-    public function showProduct($id)
+ 
+    public function show($id)
     {
         //
         return Productos::findOrfail($id)->toJson();
@@ -86,9 +89,12 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Productos $productos)
+    public function edit($id)
     {
         //
+       
+        return ['success'=>$id];
+        //Productos::findOrfail($id)->toJson();
     }
 
     /**
@@ -98,18 +104,11 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, $id)
     {
         //
-           $productos=new Productos;
-           $productos->nombre=$request->nombre;
-           $productos->medida=$request->medida;
-           $productos->espesor=$request->espesor;
-           $productos->peso=$request->peso;
-           $productos->precio=$request->precio;
-           $productos->cantidad=$request->cantidad;
-           
-           return ['success'=>'exito'];
+           return ['success'=>'listo'];
+          
 
     }
 

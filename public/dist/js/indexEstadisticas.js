@@ -61,7 +61,7 @@ $(function () {
       }]
     }
   }
-
+ 
   // This will get the first returned node in the jQuery collection.
   var salesChart = new Chart(salesChartCanvas, { 
       type: 'line', 
@@ -114,18 +114,17 @@ $(function () {
 
   /* jVector Maps
    * ------------
-   * Create a world map with markers
+   * Create a calendar from begin to end
+   * 
    */
-  $('#world-map-markers').mapael({
-      map: {
-        name : "usa_states",
-        zoom: {
-          enabled: true,
-          maxLevel: 10
-        },
-      },
-    }
-  );
+   
+   $('#calendarInicio').datepicker({
+             
+   })
+   
+   $('#calendarFin').datepicker({
+             
+  })
 
   // $('#world-map-markers').vectorMap({
   //   map              : 'world_en',

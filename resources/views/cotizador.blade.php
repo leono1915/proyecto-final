@@ -149,7 +149,138 @@
 
   @extends('layouts.aside')
 
+   
+  <div class="content-wrapper">
+      <div class="container">
+        
+      <form>
+     
+  <div class="form-row">
 
+ 
+    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Agregar Concepto</button></div>
+    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Cotizar Placas</button></div>
+   
+
+    <div class="col-md-3 mb-3 " >
+     
+      <input type="text" class="form-control" id="nombreInput" value="" required placeholder="Buscar">
+    </div>
+    <div class="col-md-6 mb-3">
+     
+     
+      <select class="form-control" id="nombreCliente" placeholder="cliente">
+      <option>Cliente</option>
+    
+    </select>
+    </div>
+    <div class="col-md-3 mb-3 " >
+     
+     <input type="text" class="form-control" id="ic" value="" required placeholder="I.C">
+   </div>
+    <div class="col-md-4 mb-3">
+      <label for="nombre">Nombre</label>
+      <select class="form-control" id="nombre">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="medida">Medida</label>
+      
+
+      <select class="form-control" id="medida" onchange="selectMedida()">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="espesor">Espesor</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="espesor">1/1</span>
+        </div>
+        <select class="form-control" id="espesor">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+    <label for="peso">Tramos</label>
+     <div class="input-group">
+       <div class="input-group-prepend">
+      
+         <span class="input-group-text" id="pesos">PZA</span>  
+       </div>
+       <input type="number" class="form-control" id="tramos" aria-describedby="inputGroupPrepend2" required min="1">
+     </div>
+     
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="medida">Metros</label>
+      <input type="number" class="form-control" id="metros" value="" required min="0">
+    </div>
+
+    
+   
+    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Cotizar Placas</button></div>
+  </div>
+  
+ 
+    <!--<div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+      <label class="form-check-label" for="invalidCheck2">
+        Agree to terms and conditions
+      </label>
+    </div>-->
+ 
+</form>
+<div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="click">prueba</button></div>
+      </div>
+
+      <div  class="card-header text-center">
+       <table class="table">
+      <thead>
+      <tr>
+      <th>Nombre</th>
+       <th>Medida</th>
+       <th>Espesor</th>
+       <th>Peso</th>
+       <th>Precio</th>
+       <th>Kilos Totales</th>
+      </tr>
+      </thead>
+       <tbody  id='contenedorTablaCotizacion'>
+       
+       
+       </tbody>
+       </table>
+     
+     <div id="contenSelect">
+
+
+     </div>
+
+     <div id="contenSelect2">
+
+
+</div>
+      </div>
+
+
+    </div>
 
 
 
@@ -175,6 +306,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>       
 <script src="{{asset('dist/js/lib/js/indee.js')}}"></script>  
+<script src="dist/js/indexCotizador.js"></script>
 </body>
 </html>
 

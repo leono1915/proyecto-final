@@ -161,7 +161,7 @@
       <label for="espesor">Espesor</label>
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="espesor">1/1</span>
+          <span class="input-group-text" id="espesorr">1/1</span>
         </div>
         <input type="text" class="form-control" id="espesor"  aria-describedby="inputGroupPrepend2" required>
       </div>
@@ -173,19 +173,19 @@
      <div class="input-group">
        <div class="input-group-prepend">
       
-         <span class="input-group-text" id="peso">KG</span>  
+         <span class="input-group-text" id="pesos">KG</span>  
        </div>
-       <input type="text" class="form-control" id="peso" aria-describedby="inputGroupPrepend2" required>
+       <input type="number" class="form-control" id="peso" aria-describedby="inputGroupPrepend2" required>
      </div>
      
     </div>
     <div class="col-md-4 mb-3">
       <label for="precio">Precio</label>
-      <input type="text" class="form-control" id="precio"  aria-describedby="inputGroupPrepend2" required>
+      <input type="number" class="form-control" id="precio"  aria-describedby="inputGroupPrepend2" required>
     </div>
     <div class="col-md-4 mb-3">
       <label for="kilosTotales">Kilos Totales</label>
-      <input type="text" class="form-control" id="kilosTotales" required>
+      <input type="number" class="form-control" id="kilosTotales" required>
     </div>
   </div>
   <div class="form-group">
@@ -199,6 +199,29 @@
   <button class="btn btn-primary" id="enviarDatosProducto">Guardar</button>
 </form>
       </div>
+
+      <div  class="card-header text-center">
+       <table class="table">
+      <thead>
+      <tr>
+      <th>Nombre</th>
+       <th>Medida</th>
+       <th>Espesor</th>
+       <th>Peso</th>
+       <th>Precio</th>
+       <th>Kilos Totales</th>
+      </tr>
+      </thead>
+       <tbody  id='containerTableProducts'>
+       
+       
+       </tbody>
+       </table>
+     
+
+      </div>
+
+
     </div>
 
   

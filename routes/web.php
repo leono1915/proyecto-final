@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ClientesController@index');
-Route::get('/productos','ProductosController@index');
+Route::get('/', function(){
+    return view('welcome');
+});
+Route::get('/productos','ProductosController@view');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -23,3 +25,4 @@ Route::get('/a', 'ClientesController@ver');
 Route::get('/cotizador',function (){
     return view('cotizador');
 });
+

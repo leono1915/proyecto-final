@@ -1,3 +1,44 @@
+#ui-datepicker-div{
+
+  background:#1abc9c;
+  font-size:30px;
+
+  border-radius: 10px;;
+  padding: 10px 15px;
+   height: auto;
+}
+
+ .ui-datepicker-calendar {
+    background-color: gainsboro;
+	border: 1px solid #000;
+ }
+ .ui-datepicker-calendar th {
+ 
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid #000;
+ }
+ .ui-datepicker-calendar td {
+
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid #000;
+ }
+.ui-datepicker-next{
+	float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 <article id="main">
