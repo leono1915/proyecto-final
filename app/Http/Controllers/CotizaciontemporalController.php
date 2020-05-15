@@ -14,7 +14,7 @@ class CotizaciontemporalController extends Controller
      */
     public function index()
     {
-        //
+       return Cotizaciontemporal::paginate(20)->toJson();
     }
 
     /**
@@ -22,9 +22,21 @@ class CotizaciontemporalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function view(){
+        return view('cotizacion');
+    }
     public function create()
     {
         //
+
+    }
+
+    public function cotizacionPdf(){
+        return 'echo';
+    }
+
+    public function ventaPdf(){
+        return 'venta';
     }
 
     /**

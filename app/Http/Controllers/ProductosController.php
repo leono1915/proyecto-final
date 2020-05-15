@@ -15,13 +15,24 @@ class ProductosController extends Controller
     public function index()
     {
         //
+        $productos=Productos::get();
        // return view('productos');
-       return Productos::paginate(50)->toJson();
+     return $productos->toJson();
+     /* $productos = Productos::paginate(5);
+        
+      return view('productos.list',compact('productos'));*/
+    //  return view('productos')->with('productos',$productos);
     }
-    public function view()
+    public function vistaProductos()
     {
         //
-       return view('productos');
+        $productos=Productos::get();
+       // return view('productos');
+      // return $productos->toJson();
+     /* $productos = Productos::paginate(5);
+        
+      return view('productos.list',compact('productos'));*/
+      return view('productos')->with('productos',$productos);
        
     }
 

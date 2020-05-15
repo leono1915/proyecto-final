@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(){
     return view('welcome');
 });
-Route::get('/productos','ProductosController@view');
+//Route::get('/productos','ProductosController@view');
 Auth::routes();
-
+Route::get('/productos', 'ProductosController@vistaProductos');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/a', 'ClientesController@ver');
+Route::get('/clientes', 'ClientesController@verClientes');
 
 Route::get('/cotizador',function (){
     return view('cotizador');
 });
 
+Route::get('/cotizacion','CotizaciontemporalController@cotizacionPdf')->name('cotizacion.pdf');
+
+Route::get('/venta','CotizaciontemporalController@ventaPdf')->name('venta.pdf');

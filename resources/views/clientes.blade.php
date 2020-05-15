@@ -37,6 +37,8 @@
 	
 	</head>
 	<body class="hold-transition sidebar-mini  layout-footer-fixed ">
+
+  
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -145,19 +147,151 @@
   <!-- /.navbar -->
 
   @extends('layouts.aside')
+    <div class="content-wrapper">
+      <div class="container">
+      <form>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" id="nombre" value="" onkeyup="mayus(this);" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="nombreAgente">Nombre agente</label>
+      <input type="text" class="form-control" id="nombreAgente" value="" onkeyup="mayus(this);" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="domicilio">Correo</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="espesorr">@</span>
+        </div>
+        <input type="text" class="form-control" id="correoCliente"  aria-describedby="inputGroupPrepend2" 
+        onkeyup="mayus(this);" required>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+    <label for="puesto">Celular</label>
+     <div class="input-group">
+       <div class="input-group-prepend">
+      
+         <span class="input-group-text" id="pesos"></span>  
+       </div>
+       <input type="number" class="form-control" id="puestoCliente" aria-describedby="inputGroupPrepend2" required>
+     </div>
+     
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="telefonoCliente">Teléfono</label>
+      <input type="number" class="form-control" id="telefonoCliente"  aria-describedby="inputGroupPrepend2" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="rfc">Rfc</label>
+      <input type="text" class="form-control" id="rfc" onkeyup="mayus(this);" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="domicilioCliente">Domicilio</label>
+      <input type="text" class="form-control" id="domicilioCliente" onkeyup="mayus(this);" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <!--<div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+      <label class="form-check-label" for="invalidCheck2">
+        Agree to terms and conditions
+      </label>
+    </div>-->
+  </div>
+  <button class="btn btn-primary" id="enviarDatosCliente">Guardar</button>
+</form>
+   <!--    tabla de productos segmentados     -->
+   
+
+   
+      </div>
+      <div class="">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Tabla de Clientes</h1>
+          </div>
+         
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+     
+
+          <div class="card">
+           
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Nombre Agente</th>
+                  <th>Telefono</th>
+                  <th>Rfc</th>
+                  <th>Correo</th>
+                  <th>Domicilio</th>
+                  <th style="display:none"> </th>
+                </tr>
+                </thead>
+                <tbody id="containerTableProductss" >
+              
+
+                @foreach ($clientes as $pro)
+                 <tr id="">
+                 <td style="display:none"> {{$pro->id}}</td>
+                <td> {{$pro->nombre}}</td>
+                <td> {{$pro->nombre_agente}}</td>
+                <td> {{$pro->telefono}}</td>
+                <td> {{$pro->rfc}}</td>
+                <td> {{$pro->correo}}</td>
+               <td>  {{$pro->domicilio}}</td>
+                </tr>
+                @endforeach
 
 
+ 
+
+                </tbody>
+                <tfoot>
+               
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ 
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+     
 
 
-
-
-
-
-
-
-
-
-<
+    </div>
+ 
+  
  
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -167,12 +301,12 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 
-
+<script src="dist/js/jquery.dataTables.js"></script>
+<script src="dist/js/dataTables.bootstrap4.js"></script>
+<script src="dist/js/zindex.js"></script>
 
   
-  <script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
 
@@ -184,9 +318,23 @@
 <!-- jQuery Knob Chart -->
 
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
 </body>
 </html>
 

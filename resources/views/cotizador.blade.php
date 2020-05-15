@@ -6,11 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador</title>
+    <style>
+     .fa-eraser{
+       width:50px;
+     }
+    </style>
    <!-- <link rel="stylesheet" href="{{asset('dist/css/main.css')}}" />-->
    <link rel="stylesheet" href="{{asset('dist/css/aside.css')}}" />
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.css')}}">
 	<link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
-	<link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 
 	function mensaje2() {
@@ -33,7 +43,17 @@
 	}
 	
 		</script>
-	
+	<style>
+    .contenidoRadio{
+      margin:auto;
+      float:right;
+      padding:10px;
+     
+    }
+    .contenidoRadio input{
+      margin-left:30px;
+    }
+  </style>
 	</head>
 	<body class="hold-transition sidebar-mini  layout-footer-fixed ">
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -150,68 +170,318 @@
   @extends('layouts.aside')
 
    
-  <div class="content-wrapper">
+  <div class="content-wrapper" >
+<!-- Button trigger modal -->
+
+
+<!-- Modal Placas-->
+<div class="modal fade" id="cotizarPlacas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg" >
+      <div class="modal-header" >
+        <h5 class="modal-title" id="exampleModalLabel">Placas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"  >
+        <div class="container" >
+        <div class="cotizador-placas" id="cotizador-placas">
+											
+											<div class="row">
+										
+													<div class="col-md-6" id="placeholder">	
+                                            <select name="" id="selectionNamePlaca" class="form-control">
+												
+																
+												<option >Placa</option>
+												<option >Disco</option>
+												<option >Brida</option>
+												<option >Cartabon</option>
+											 
+											</select>
+											
+											<input type="text" id="medidaBrida"class="form-control mt-3" placeholder="Diametro Interior" >
+											</div>
+											   <div class="col-md-6" id="placeholder">
+												<input class="form-control " type="text" id="medida1"  placeholder="Medida 1">
+												<input class="form-control mt-3" type="text" id="medida2"  placeholder="Medida 2">
+											</div>
+												<div class="col-md-6" id="placeholder">
+												<input class="form-control mt-3" type="text" id="precio" placeholder="Precio">
+											
+                      </div>
+                      <div class="col-md-6">
+                      <input class="form-control mt-3" type="text" id="precioCorte"  placeholder="Corte">
+                      </div>
+											</div>
+										
+											
+											<div class="row">
+											<label for="pulgadas"><input type="checkbox" class="form-check-label" id="pulgadas" value="2.54">Pulgadas</label>
+                                        <div class="espesores">
+																<div class="contenidoRadio col-md-12">
+																<label class="label-radio item-content">
+																		<input type="radio" class="form-check-label"name="gender" id="1/8" value=".0025"> 
+																		<span class="spana">1/8</span>
+																	</label>
+																	<label class="label-radio item-content">
+																		<input type="radio" class="form-check-label" name="gender" id="3/16" value=".00375">
+																		<span class="spana">3/16</span>
+																	</label>
+																	<label class="label-radio item-content">
+																		<input type="radio" class="form-check-label" name="gender" id="1/4" value=".0050">
+																		<span class="spana">1/4</span> 
+																	</label>
+																	<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="5/16" value=".00625"/> 
+																		<span class="spana">5/16</span>
+																	</label>
+																	<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="3/8" value=".0075">
+																		<span class="spana">3/8</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="7/16" value=".00875">
+																		<span class="spana">7/16</span>
+																		</label>
+																		
+																		
+																</div>
+																<div class="contenidoRadio col-md-12">
+																<label class="label-radio item-content">
+																<input type="radio" name="gender" id="1/2" value=".0100">
+																		<span class="spana">1/2</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="5/8" value=".0125">
+																		<span class="spana">5/8</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="3/4" value=".0150">
+																		<span class="spana">3/4</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="7/8" value=".0175">
+																		<span class="spana">7/8</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="1" value=".0200">
+																		<span class="spana">1</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="13/16" value=".02375">
+																		<span class="spana">1 3/16</span>
+																		</label>
+																</div>
+																<div class="contenidoRadio col-md-12">
+																<label class="label-radio item-content">
+																<input type="radio" name="gender" id="11/4" value=".0250">
+																		<span class="spana">1 1/4</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="13/8" value=".0275">
+																		<span class="spana">1 3/8</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="11/2" value=".0300">
+																		<span class="spana">1 1/2</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="15/8" value=".0325">
+																		<span class="spana">1 5/8</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="13/4" value=".0350">
+																		<span class="spana">1 3/4</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="2" value=".0400">
+																		<span class="spana">2</span>
+																		</label>
+																	
+																</div>
+																<div class="contenidoRadio col-md-12">
+																<label class="label-radio item-content">
+																<input type="radio" name="gender" id="21/4" value=".0450">
+																		<span class="spana">2 1/4</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="21/2" value=".0500">
+																		<span class="spana">2 1/2</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="3" value=".0600">
+																		<span class="spana">3</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="4" value=".0800">
+																		<span class="spana">4</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="5" value=".100">
+																		<span class="spana">5</span>
+																		</label>
+																		<label class="label-radio item-content">
+																		<input type="radio" name="gender" id="6" value=".120">
+																		<span class="spana">6</span>
+																		</label>
+																		
+																</div>
+
+													
+
+															
+														
+													
+
+										</div>
+										<div class="informacion-placas col-md-12" >
+											
+											<label for="">Peso</label>
+											<input class="form-control"type="text" id="txtPesoPlaca" value="">
+											<label for="">Corte</label>
+											<input class="form-control"type="text" id="txtCortePlaca" value="">
+											<label for="">SubTotal</label>
+											<input class="form-control"type="text" id="txtSubTotalPlaca" value="">
+											<label for="">Iva</label>
+											<input class="form-control"type="text" id="txtIvaPlaca" value="">
+											<label for="">Total</label>
+											<input class="form-control"type="text" id="txtTotalPlaca" value="">
+										 
+										</div>
+										</div>
+										<br>
+									
+
+                    </div>
+                    
+
+                    <!--end   of cotizador Placas-->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="cotizarPlaca">Cotizar</button>
+      </div>
+    </div>
+  </div> 
+</div>
+ <!--  End Modal Placas-->
+ <!-- Modal Agregar Concepto-->
+ <div class="modal fade" id="conceptoNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Concepto Nuevo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h2>Agregue el nuevo concepto</h2>
+												<div class="popup">
+										
+					  Cantidad<input class="form-control" type="text" value="1" id="cantidadConcepto">
+					  Nombre<input class="form-control" type="text" id="nombreConcepto">
+					  Medida<input class="form-control" type="text" id="medidaConcepto">
+					  Espesor<input class="form-control" type="text" id="espesorConcepto">
+             Precio<input class="form-control" type="text" id="precioConcepto">
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <!--  End agregar Concepto-->
+<!--   Modal agregar  Cliente   -->
+ <div class="modal fade" id="clienteNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Concepto Nuevo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h2>Agregue el nuevo cliente</h2>
+												<div class="popup">
+										
+					  Nombre<input class="form-control" type="text" value="1" id="nombreClienteModal">
+					  Telefono<input class="form-control" type="text" id="telefonoCliente">
+            Celular<input class="form-control" type="text" id="celularCliente">
+					  Correo<input class="form-control" type="text" id="correoCliente">
+					  Domicilio<input class="form-control" type="text" id="domicilioCliente">
+           
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+                <!--   End agregar cliente desde cotizador  -->
       <div class="container">
         
-      <form>
+      <form  >
      
   <div class="form-row">
 
  
-    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Agregar Concepto</button></div>
-    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Cotizar Placas</button></div>
+    <div class="col-md-6 mt-3 mb-4">   <button type="button"class="btn btn-success" data-toggle="modal" data-target="#conceptoNuevo" >
+      Agregar Concepto</button></div>
+    <div class="col-md-6 mt-3 mb-4">  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cotizarPlacas">
+ Cotizar Placas
+</button></div>
    
 
     <div class="col-md-3 mb-3 " >
      
-      <input type="text" class="form-control" id="nombreInput" value="" required placeholder="Buscar">
+      <input type="text" class="form-control" id="nombreInput" value="" required placeholder="Buscar" onchange="listarClientes();" >
     </div>
     <div class="col-md-6 mb-3">
      
      
-      <select class="form-control" id="nombreCliente" placeholder="cliente">
-      <option>Cliente</option>
+      <select class="form-control" id="nombreCliente" >
+     
     
     </select>
     </div>
     <div class="col-md-3 mb-3 " >
      
-     <input type="text" class="form-control" id="ic" value="" required placeholder="I.C">
+     <input type="text" class="form-control" id="ic" value=""  placeholder="I.C">
    </div>
     <div class="col-md-4 mb-3">
       <label for="nombre">Nombre</label>
-      <select class="form-control" id="nombre">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+      <select class="form-control" id="nombre" onchange="selectMedida()">
+      <option>Nombre</option>
+   
     </select>
     </div>
     <div class="col-md-4 mb-3">
       <label for="medida">Medida</label>
       
 
-      <select class="form-control" id="medida" onchange="selectMedida()">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+      <select class="form-control" id="medida" onchange="selectEspesor()">
+     
     </select>
     </div>
     <div class="col-md-4 mb-3">
       <label for="espesor">Espesor</label>
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="espesor">1/1</span>
+          <span class="input-group-text" id="espesori">1/1</span>
         </div>
         <select class="form-control" id="espesor">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+     
     </select>
       </div>
     </div>
@@ -224,18 +494,27 @@
       
          <span class="input-group-text" id="pesos">PZA</span>  
        </div>
-       <input type="number" class="form-control" id="tramos" aria-describedby="inputGroupPrepend2" required min="1">
+       <input type="number" class="form-control" id="tramos" aria-describedby="inputGroupPrepend2"  min="1">
      </div>
      
     </div>
     <div class="col-md-4 mb-3">
       <label for="medida">Metros</label>
-      <input type="number" class="form-control" id="metros" value="" required min="0">
+      <input type="number" class="form-control" id="metros" value=""  min="0">
     </div>
 
     
    
-    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="enviarDatosProducto">Cotizar Placas</button></div>
+    <div class="col-md-6 mt-3 mb-4">   <a href="{{route('cotizacion.pdf')}}" class="btn btn-dark" id="cotizacion">Generar Cotización</a></div>
+    <div class="col-md-6 mt-3 mb-4">   <a href="{{route('venta.pdf')}}" class="btn btn-dark" id="venta">Vender</a>
+
+     <button type="button" class="btn btn-dark" style="margin-left:35%" data-toggle="modal" data-target="#clienteNuevo">
+ Agregar Cliente
+</button>
+    
+    </div>
+   
+   
   </div>
   
  
@@ -247,22 +526,24 @@
     </div>-->
  
 </form>
-<div class="col-md-6 mt-3 mb-4">   <button class="btn btn-success" id="click">prueba</button></div>
+<div class="col-md-6 mt-3 mb-4">   <button class="btn btn-danger" id="click">Calcular</button></div>
       </div>
 
       <div  class="card-header text-center">
        <table class="table">
       <thead>
       <tr>
+      <th> Cantidad</th>
       <th>Nombre</th>
        <th>Medida</th>
        <th>Espesor</th>
        <th>Peso</th>
        <th>Precio</th>
        <th>Kilos Totales</th>
+       <th> Accion</th>
       </tr>
       </thead>
-       <tbody  id='contenedorTablaCotizacion'>
+       <tbody  id='contenedorTablaCotizacion1'>
        
        
        </tbody>
@@ -279,17 +560,8 @@
 </div>
       </div>
 
-
+     
     </div>
-
-
-
-
-
-
-
-
-
 
 <!--                                                            javascript   files   -->
 		<!-- Page Wrapper -->
@@ -305,8 +577,9 @@
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>       
-<script src="{{asset('dist/js/lib/js/indee.js')}}"></script>  
+ 
 <script src="dist/js/indexCotizador.js"></script>
+
 </body>
 </html>
 

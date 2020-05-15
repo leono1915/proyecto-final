@@ -20,5 +20,12 @@ use Illuminate\Support\Facades\Route;
 //Route::post('productos', 'ProductosController@store');
 Route::resource('productos', 'ProductosController');
 Route::resource('clientes','ClientesController');
-/*Route::get('productos', 'ProductosController@show');
+Route::resource('cotizaciones','CotizaciontemporalController');
+Route::resource('empleados','EmpleadosController');
+Route::resource('orden','OrdencomprasController');
+Route::resource('compras','HistorialcomprasController');
+Route::resource('ventas','HistorialventasController');
+Route::post('clientes/coincidencia', 'ClientesController@coincidencia');
+
+/*
 Route::get('productos/{id}', 'ProductosController@showProduct');

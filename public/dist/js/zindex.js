@@ -1,11 +1,16 @@
 //global variables
 let dominio='http://127.0.0.1:8000/api/';
+
+function mayus(e) {
+  e.value = e.value.toUpperCase();
+}
 $(function () {
 
   'use strict'
   /*here call to global functions*/
+
   listProducts();
-  
+ // document.write("<"+"script type='text/javascript' src='dist/js/jquery.dataTables.js'><"+"/script>")
   
  
 
@@ -60,8 +65,8 @@ function     listProducts(){
         
        var element=JSON.parse(request)
           
-            console.log(element.data[0].cantidad);
-            element.data.forEach(dato=>{
+           
+            element.forEach(dato=>{
               tableData+=`
            <tr>   <td >${dato.nombre}</td> 
 
@@ -69,7 +74,7 @@ function     listProducts(){
              <td >${dato.espesor}</td> 
              <td >${dato.peso}</td> 
              <td >${dato.precio}</td>
-             <td >${dato.cantidad}</td> 
+            
           
              </tr>
               `
@@ -77,12 +82,18 @@ function     listProducts(){
 
          console.log(tableData)
          document.getElementById('containerTableProducts').innerHTML=tableData;
+        // document.write("<script src='dist/js/jquery.dataTables.js'></script>")
+
+         
     }
 
    
   }
-  
+           
   )
 
   
 }
+
+
+

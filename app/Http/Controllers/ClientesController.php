@@ -19,6 +19,14 @@ class ClientesController extends Controller
         return  Clientes::paginate(5)->toJson();
     }
 
+    public function coincidencia(Request $nombre){
+        
+
+        return  
+        Clientes::where('nombre', 'LIKE', '%'.$nombre->nombre.'%' )->
+        orwhere('nombre_agente', 'LIKE', '%'.$nombre->nombre.'%')->get()->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,6 +46,13 @@ class ClientesController extends Controller
         } 
         dd($user);*/
         return $user->toJson();
+    }
+
+    public function verClientes(){
+
+        $clientes=Clientes::get();
+
+        return view('clientes')->with('clientes',$clientes);
     }
     /**
      * Store a newly created resource in storage.

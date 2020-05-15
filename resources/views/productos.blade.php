@@ -37,6 +37,8 @@
 	
 	</head>
 	<body class="hold-transition sidebar-mini  layout-footer-fixed ">
+
+  
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -151,11 +153,11 @@
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" value="" required>
+      <input type="text" class="form-control" id="nombre" value="" onkeyup="mayus(this);" required>
     </div>
     <div class="col-md-4 mb-3">
       <label for="medida">Medida</label>
-      <input type="text" class="form-control" id="medida" value="" required>
+      <input type="text" class="form-control" id="medida" value="" onkeyup="mayus(this);" required>
     </div>
     <div class="col-md-4 mb-3">
       <label for="espesor">Espesor</label>
@@ -163,7 +165,8 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="espesorr">1/1</span>
         </div>
-        <input type="text" class="form-control" id="espesor"  aria-describedby="inputGroupPrepend2" required>
+        <input type="text" class="form-control" id="espesor"  aria-describedby="inputGroupPrepend2" onkeyup="mayus(this);"
+         required>
       </div>
     </div>
   </div>
@@ -198,32 +201,92 @@
   </div>
   <button class="btn btn-primary" id="enviarDatosProducto">Guardar</button>
 </form>
-      </div>
+   <!--    tabla de productos segmentados     -->
+   
 
-      <div  class="card-header text-center">
-       <table class="table">
-      <thead>
-      <tr>
-      <th>Nombre</th>
-       <th>Medida</th>
-       <th>Espesor</th>
-       <th>Peso</th>
-       <th>Precio</th>
-       <th>Kilos Totales</th>
-      </tr>
-      </thead>
-       <tbody  id='containerTableProducts'>
-       
-       
-       </tbody>
-       </table>
+   
+      </div>
+      <div class="">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Tabla de Productos</h1>
+          </div>
+         
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
      
 
+          <div class="card">
+           
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Medida</th>
+                  <th>Espesor</th>
+                  <th>Peso</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th style="display:none"> </th>
+                </tr>
+                </thead>
+                <tbody id="containerTableProductss" >
+              
+
+                @foreach ($productos as $pro)
+                 <tr id="">
+                 <td style="display:none"> {{$pro->id}}</td>
+                <td> {{$pro->nombre}}</td>
+                <td> {{$pro->medida}}</td>
+                <td> {{$pro->espesor}}</td>
+                <td> {{$pro->peso}}</td>
+                <td> {{$pro->precio}}</td>
+               <td>  {{$pro->cantidad}}</td>
+                </tr>
+                @endforeach
+
+
+ 
+
+                </tbody>
+                <tfoot>
+               
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
       </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ 
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+     
 
 
     </div>
-
+ 
   
  
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -233,13 +296,13 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<script src="dist/js/index.js"></script>
 
+<script src="dist/js/jquery.dataTables.js"></script>
+<script src="dist/js/dataTables.bootstrap4.js"></script>
+<script src="dist/js/zindex.js"></script>
 
   
-  <script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
 
@@ -251,9 +314,23 @@
 <!-- jQuery Knob Chart -->
 
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
 </body>
 </html>
 

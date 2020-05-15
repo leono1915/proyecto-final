@@ -44,7 +44,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/cotizador" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Cotizador
@@ -62,7 +62,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link ">
+                <a href="/productos" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Serie A</p>
                 </a>
@@ -93,19 +93,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="/clientes" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Clientes</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="/proveedores" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedores</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="/empleados" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Empleados</p>
                 </a>
@@ -124,25 +124,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="/home" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Todo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="/cotizaciones" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>cotizaciones</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="/compras" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compras</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="/ventas" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ventas</p>
                 </a>
@@ -152,7 +152,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/orden" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Generar orden de compra
