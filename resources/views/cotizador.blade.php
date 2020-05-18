@@ -494,13 +494,13 @@
       
          <span class="input-group-text" id="pesos">PZA</span>  
        </div>
-       <input type="number" class="form-control" id="tramos" aria-describedby="inputGroupPrepend2"  min="1">
+       <input type="number" class="form-control" id="tramos" aria-describedby="inputGroupPrepend2" value="1"  min="0">
      </div>
      
     </div>
     <div class="col-md-4 mb-3">
       <label for="medida">Metros</label>
-      <input type="number" class="form-control" id="metros" value=""  min="0">
+      <input type="number" class="form-control" id="metros" value="0"  min="0">
     </div>
 
     
@@ -526,29 +526,76 @@
     </div>-->
  
 </form>
-<div class="col-md-6 mt-3 mb-4">   <button class="btn btn-danger" id="click">Calcular</button></div>
+<div class="col-md-6 mt-3 mb-4">   <button class="btn btn-danger" id="click">Calcular</button>
+
+<button class="btn btn-danger" id="limpiarTabla">limpiar Tabla</button>
+</div>
+
       </div>
 
-      <div  class="card-header text-center">
-       <table class="table">
+      <div  class="card-header text-center container">
+       <table class="table ">
       <thead>
       <tr>
       <th> Cantidad</th>
-      <th>Nombre</th>
-       <th>Medida</th>
-       <th>Espesor</th>
+      <th>Unidad</th>
+       <th>Descripción</th>
+       <th>Largo</th>
        <th>Peso</th>
-       <th>Precio</th>
-       <th>Kilos Totales</th>
-       <th> Accion</th>
+       <th>Cant KG</th>
+       <th>Precio Unitario</th>
+       <th>Importe</th>
+       <th>Accion </th>
       </tr>
       </thead>
        <tbody  id='contenedorTablaCotizacion1'>
        
        
        </tbody>
+       <tfoot >
+                      
+													<tr>
+                          
+														<td colspan="6"></td>
+														<td style="font-weight: bold">Descuento
+															<select name="" id="opcionAdescontar">
+														 <option value="0"> 0%</option>
+														 <option value=".08"> 8%</option>
+														 <option value=".07"> 7%</option>
+														  <option value=".06"> 6%</option>
+														   <option value=".05"> 5%</option>
+														   <option value=".04"> 4%</option>
+														 <option value=".03"> 3%</option>
+														 <option value=".02"> 2%</option>
+														  <option value=".01"> 1%</option>
+														
+														 </select>
+														</td>
+														
+														<td id="descuento">0.00</td>
+														<td><i class="fas fa-tags" id="descuentos"></i>
+														<i class="fas fa-window-close"></i></td>
+													</tr>
+
+                          <tr>
+                        <td colspan="6"></td>
+                        <th>Subtotal</th>
+       <th>Iva</th>
+       <th>Total</th>
+                       </tr>
+													<tr>
+														<td colspan="6"></td>
+														
+														<td style=" display:none"id="total_precio">0.00</td>
+														<td id="total_subtotales">0.00</td>
+														<td id="total_impuesto">0.00</td>
+														<td id="total_total">0.00</td>
+													   
+														</td>	
+													</tr>
+												</tfoot>
        </table>
-     
+      
      <div id="contenSelect">
 
 
