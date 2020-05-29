@@ -393,7 +393,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-primary" id="agregarConcepto">Agregar</button>
       </div>
     </div>
   </div>
@@ -503,9 +503,9 @@
       <input type="number" class="form-control" id="metros" value="0"  min="0">
     </div>
 
-    
+    <!--{{route('cotizar.pdf')}}-->
    
-    <div class="col-md-6 mt-3 mb-4">   <a href="{{route('cotizacion.pdf')}}" class="btn btn-dark" id="cotizacion">Generar Cotización</a></div>
+    <div class="col-md-6 mt-3 mb-4">   <a href="" class="btn btn-dark" id="cotizacion">Generar Cotización</a></div>
     <div class="col-md-6 mt-3 mb-4">   <a href="{{route('venta.pdf')}}" class="btn btn-dark" id="venta">Vender</a>
 
      <button type="button" class="btn btn-dark" style="margin-left:35%" data-toggle="modal" data-target="#clienteNuevo">
@@ -540,8 +540,8 @@
       <th> Cantidad</th>
       <th>Unidad</th>
        <th>Descripción</th>
-       <th>Largo</th>
-       <th>Peso</th>
+      
+       <th>Peso Unitario</th>
        <th>Cant KG</th>
        <th>Precio Unitario</th>
        <th>Importe</th>
@@ -574,7 +574,7 @@
 														
 														<td id="descuento">0.00</td>
 														<td><i class="fas fa-tags" id="descuentos"></i>
-														<i class="fas fa-window-close"></i></td>
+														<i class="fas fa-window-close" id="limpiarDescuento"></i></td>
 													</tr>
 
                           <tr>

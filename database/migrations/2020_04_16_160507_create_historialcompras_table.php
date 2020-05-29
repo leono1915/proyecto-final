@@ -17,7 +17,7 @@ class CreateHistorialcomprasTable extends Migration
             $table->id();
             $table->timestamps();
             $table->biginteger('id_cliente')->unsigned();
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            $table->foreign('id_cliente')->references('id')->on('proveedores');
             $table->biginteger('id_producto')->unsigned();
             $table->foreign('id_producto')->references('id')->on('productos');
             $table->string('folio');

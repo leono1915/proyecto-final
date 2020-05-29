@@ -13,7 +13,7 @@ class CreateCotizaciontemporalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cotizaciontemporal', function (Blueprint $table) {
+        Schema::create('cotizaciontemporals', function (Blueprint $table) {
             $table->id();
             $table->biginteger('cantidad');
             $table->string('descripcion');
@@ -37,6 +37,6 @@ class CreateCotizaciontemporalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotizaciontemporal');
+        Schema::dropIfExists('cotizaciontemporals');
     }
 }

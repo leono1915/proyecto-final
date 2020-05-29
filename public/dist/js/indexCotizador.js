@@ -1,8 +1,10 @@
 //global variables
 let dominio='http://127.0.0.1:8000/api/';
+let dominioWeb='http://127.0.0.1:8000/';
 var element;
 var arrayCotizaciones=[{
-     index:'',cantidad:'',nombre:'',medida:'',espesor:'',largo:'',cantidadKilogramos:'',precioUnitario:'',importe:''
+     index:'',cantidad:'',nombre:'',medida:'',espesor:'',peso:'',largo:'',cantidadKilogramos:'',precioUnitario:'',importe:''
+     ,precio
 }];
 const  factorTramo=(1/6.1);
 const iva=.16;
@@ -32,6 +34,8 @@ $(function () {
                              var cantidad=document.getElementById('kilosTotales').value;
                              //document.getElementById('kilosTotales').value;
                              console.log(nombre,medida,espesor)
+
+                             
                              $.ajax({
                                  url:dominio+'productos',
                                  type:'post',
@@ -85,12 +89,15 @@ $(function () {
                            cantidad=1;
                            costoMetros = ((parseFloat(metros) * (factorTramo)) * parseFloat(e.peso)) * parseFloat(e.precio);
                            subtotalMetros = costoMetros * costoPerdida;
-		                    	 costoMetros += subtotalMetros;
+                           costoMetros += subtotalMetros;
+                           var peso=e.peso;
                            costoTramos= parseFloat(tramos*e.peso*e.precio);
-                           cantidadKilogramos=e.peso;
+                           cantidadKilogramos=Math.round((e.peso*parseFloat(parseFloat(tramos)+(metros*factorTramo)))*100)/100;
                            precioUnitario=Math.round((costoTramos+costoMetros)*100)/100;
+                           precio=precioUnitario;
                            importe=Math.round((precioUnitario+(precioUnitario*iva))*100)/100;
-                           arrayCotizaciones.push({index,cantidad,nombre,medida,espesor, largo,cantidadKilogramos,precioUnitario,importe});
+                           arrayCotizaciones.push({index,cantidad,nombre,medida,espesor, largo,peso,cantidadKilogramos,precioUnitario,importe
+                          ,precio});
                            console.log(arrayCotizaciones)
                       }
                      
@@ -114,12 +121,12 @@ $(function () {
                             <tr>
                                 <td style="display:none">
                                 <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
-                                <td> <input type="number" class="fa-eraser"  value="1" min="1"/> </td>
+                                <td> <input type="number" class="fa-eraser calcularCantidad"  value="1" min="1"/> </td>
 
                                 <td >${"pzas"}</td> 
                                 <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
                                
-                                <td >${dato.largo}</td> 
+                               
                                 <td > ${dato.peso} </td>
                                 <td > ${dato.cantidadKilogramos}  </td>
                                 <td name="subtotal[]"> ${dato.precioUnitario} </td>
@@ -158,12 +165,12 @@ $(function () {
                   <tr>
                   <td style="display:none">
                   <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
-                  <td> <input type="number" class="fa-eraser"  value="1" min="1"/> </td>
+                  <td> <input type="number" class="fa-eraser calcularCantidad"  value="${dato.cantidad}" min="1"/> </td>
 
                   <td >${"pzas"}</td> 
                   <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
                  
-                  <td >${dato.largo}</td> 
+                
                   <td > ${dato.peso} </td>
                   <td > ${dato.cantidadKilogramos} </td>
                   <td name="subtotal[]"> ${dato.precioUnitario} </td>
@@ -176,6 +183,7 @@ $(function () {
                  })
               
                  document.getElementById('contenedorTablaCotizacion1').innerHTML=select;
+                 calculateTotalsBySumColumn();
               })
 
               $('#limpiarTabla').on('click',function(){{
@@ -189,13 +197,57 @@ $(function () {
 	document.getElementById("total_impuesto").innerHTML =0.0
 
 	
-	document.getElementById("total_total").innerHTML = Math.round(total_precios * 100) / 100;
+	document.getElementById("total_total").innerHTML = 0.0
 	document.getElementById("descuento").innerHTML = 0.0;
               }})
+                                      //                     funcion descuentos
 
+
+              $('#descuentos').on('click',calculateTotalsBySumColumnDescuento);
+
+
+              //      funcion limpiar descuentos                     
+              $('#limpiarDescuento').on('click',calculateTotalsBySumColumn);
+
+              $("body").on('click', ".calcularCantidad",calcularNuevaCantidad);
                   
+              $('#agregarConcepto').on('click',agregarConcepto);
+              $('#cotizacion').on('click',function(){
+                 
+               var array2=  `[{
+                        nombre:'perro',
+                        medida:'perra',
+                        espesor:'maldio'
+                 },
+                 {
+                  nombre:'perro',
+                  medida:'perra',
+                  espesor:'maldio'
+           },
+           {
+            nombre:'perro',
+            medida:'perra',
+            espesor:'maldio'
+     }
+               
+                ]`
+                 
+                var array= localStorage.getItem('cotizacion');
+                var idCliente=document.getElementById('nombreCliente').value;
+                var idUser=document.getElementById('userId').value;
+                 $.ajax({
+                   url:dominio+'cotizaciones',
+                   type: 'POST',
+                  // dataType:'json',
+                 //  contentType: 'json',
+                   data:{array,idUser,idCliente},
+                  // contentType: 'application/json; charset=utf-8',
+                   success:function(request){
+                       console.log(request)
+                   }
+                 })
 
-
+              })
 
 
               /*  $('#cotizacion').on('click',function(event){
@@ -297,16 +349,16 @@ function     listProducts(){
       <tr>
       <td style="display:none">
       <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
-      <td> <input type="number" class="fa-eraser"  value="1" min="1"/> </td>
+      <td> <input type="number" class="fa-eraser calcularCantidad"  value="${dato.cantidad}" min="1"/> </td>
 
       <td >${"pzas"}</td> 
       <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
      
-      <td >${dato.largo}</td> 
+    
       <td > ${dato.peso} </td>
       <td > ${dato.cantidadKilogramos} </td>
-      <td name="subtotal[]"> ${dato.precioUnitario} </td>
-      <td name="total[]"> ${dato.importe} </td>
+      <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
+      <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
       <td > <i class="far fa-trash-alt"></i></td>
   </tr>
       ` 
@@ -414,7 +466,7 @@ function listarClientes(){
               select+=`
               <option value=${dato.id}> ${nombreAux[i]} </option>
               `
-              console.log(select)
+             // console.log(select)
 
               i++;
          })
@@ -435,6 +487,7 @@ function listarClientes(){
 
 
 function calculoDePlacas() {
+  var index=250;
 	var pulgadas;
 	var unidadMedida;
 	var check=document.getElementById('pulgadas');
@@ -490,9 +543,19 @@ function calculoDePlacas() {
 	subtotal = precioPlaca + precioCorteFinal;
 	impuesto = subtotal * iva;
 	total = impuesto + subtotal;
-	var id = $("input[name='gender']:checked").parent().find('.spana').text();
-	var descripcion = tipoPlacay[tipoPlacax].text + " DE " + id + " " + auxM1 + "x" + auxM2 + " KG " + Math.round(pesoPlacaFinal * 100) / 100;
-console.log(descripcion)
+  var id = $("input[name='gender']:checked").parent().find('.spana').text();
+  element.map(e=>{
+    if(e.espesor==id){
+    
+      console.log(index)
+    }
+  })
+  var nombre = tipoPlacay[tipoPlacax].text;
+  var medida=   auxM1 + "x" + auxM2 + ""
+  var espesor=  id;
+  var cantidad=1;
+  
+
 
 if (validacion()) {
   document.getElementById('txtPesoPlaca').value = Math.round(pesoPlacaFinal * 100) / 100;
@@ -506,7 +569,41 @@ if (validacion()) {
 		subtotal1= Math.round(subtotal * 100) / 100 ,iva1=Math.round(impuesto * 100) / 100,total1= Math.round(total* 100) / 100,
 		accion='<span ">    </span><span class="icon fa-eraser"></span>',250,1,0,0);
 		calculateTotals(subtotal, subtotal, impuesto, total, 1);*/
-	//}
+  //}
+  var largo="N/A";
+  var cantidadKilogramos=pesoPlacaFinal;
+  var peso=pesoPlacaFinal;
+  var precioUnitario=subtotal,precio=subtotal,importe=total;
+  arrayCotizaciones.push({index,cantidad,nombre,medida,espesor,largo,peso,cantidadKilogramos
+,precioUnitario,precio,importe})
+var selectTabla="";
+var k=0;
+arrayCotizaciones.map(dato=>{
+  selectTabla+= `
+  <tr>
+  <td style="display:none">
+  <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
+  <td> <input type="number" class="fa-eraser calcularCantidad"  value="${dato.cantidad}" min="1"/> </td>
+
+  <td >${"pzas"}</td> 
+  <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
+ 
+ 
+
+  <td > ${dato.peso} </td>
+  <td > ${dato.cantidadKilogramos} </td>
+  <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
+  <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
+  <td > <i class="far fa-trash-alt"></i></td>
+</tr>
+  ` 
+  k++;
+  localStorage.setItem('cotizacion',JSON.stringify(arrayCotizaciones));
+
+document.getElementById('contenedorTablaCotizacion1').innerHTML=selectTabla;
+
+ })
+ calculateTotalsBySumColumn();     
 }
 
 function validacion() {
@@ -557,7 +654,9 @@ function calculateTotalsBySumColumnDescuento() {
 	var total_precios = 0;
 	var porcentajeDescuento=document.getElementById('opcionAdescontar').value;
     console.log(porcentajeDescuento)
-	var array_precios = document.getElementsByName("precio_p[]");
+		var total_precios = 0;
+	
+	var array_precios = document.getElementsByName("total[]");
 	for (var i = 0; i < array_precios.length; i++) {
 		total_precios += parseFloat(array_precios[i].innerHTML);
 	}
@@ -565,26 +664,135 @@ function calculateTotalsBySumColumnDescuento() {
 
 
 	var subtotales = 0;
-	var array_subtotales = document.getElementsByName("subtotal_p[]");
+	var array_subtotales = document.getElementsByName("subtotal[]");
 	for (var i = 0; i < array_subtotales.length; i++) {
 		subtotales += parseFloat(array_subtotales[i].innerHTML);
-	}
+  }
+  
 	document.getElementById("total_subtotales").innerHTML = Math.round(subtotales * 100) / 100;
 
 
-	var total_impuesto = 0;
-	var array_impuestos = document.getElementsByName("impuesto_p[]");
-	for (var i = 0; i < array_impuestos.length; i++) {
-		total_impuesto += parseFloat(array_impuestos[i].innerHTML);
-	}
-	document.getElementById("total_impuesto").innerHTML = Math.round(total_impuesto * 100) / 100;
-	var descuento = (subtotales *porcentajeDescuento);
+	document.getElementById("total_impuesto").innerHTML = Math.round((subtotales*iva) * 100) / 100;
+
+	
+	//document.getElementById("total_total").innerHTML = Math.round(total_precios * 100) / 100;
+  var descuento = (subtotales *porcentajeDescuento);
 	document.getElementById("descuento").innerHTML = Math.round(descuento * 100) / 100;
-	var totales_n = 0;
-	var array_totalesn = document.getElementsByName("total_p[]");
-	for (var i = 0; i < array_totalesn.length; i++) {
-		totales_n += parseFloat(array_totalesn[i].innerHTML);
+	document.getElementById("total_total").innerHTML = Math.round((total_precios - descuento) * 100) / 100;
+
+}
+
+function calcularNuevaCantidad(){
+    
+   var a= this.parentNode.parentNode;
+   var selectTabla="";
+   var k=0;
+   var nuevaCantidad,nuevo;
+   var cantidad= parseInt(a.getElementsByTagName('td')[1].getElementsByTagName('input')[0].value);
+   var posicion= a.getElementsByTagName('td')[0].getElementsByTagName('input')[0].value;
+   console.log(cantidad);
+   nuevaCantidad=cantidad*parseFloat(arrayCotizaciones[posicion].precio);
+   nuevo=cantidad*parseFloat(arrayCotizaciones[posicion].precio*1.16);
+   console.log(nuevo,nuevaCantidad)
+   arrayCotizaciones[posicion].cantidad=cantidad;
+   arrayCotizaciones[posicion].precioUnitario=nuevaCantidad;
+   arrayCotizaciones[posicion].importe=nuevo;
+  /* var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+	 if ((new Date().getTime() - start) > 1000) {
+	  break;
+	 }
+	}*/
+   arrayCotizaciones.map(dato=>{
+    selectTabla+= `
+    <tr>
+    <td style="display:none">
+    <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
+    <td> <input type="number" class="fa-eraser calcularCantidad"  value="${dato.cantidad}" min="1"/> </td>
+
+    <td >${"pzas"}</td> 
+    <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
+   
+   
+    <td > ${dato.peso} </td>
+    <td > ${dato.cantidadKilogramos} </td>
+    <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
+    <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
+    <td > <i class="far fa-trash-alt"></i></td>
+</tr>
+    ` 
+    k++;
+    localStorage.setItem('cotizacion',JSON.stringify(arrayCotizaciones));
+
+ document.getElementById('contenedorTablaCotizacion1').innerHTML=selectTabla;
+ 
+   })
+   calculateTotalsBySumColumn();
+   
+
+}
+
+function agregarConcepto(){
+  var cantidad = parseInt(document.getElementById('cantidadConcepto').value);
+	var nombre = document.getElementById('nombreConcepto').value;
+	var medida = document.getElementById('medidaConcepto').value;
+	var espesor = document.getElementById('espesorConcepto').value;
+	var precio = parseFloat(document.getElementById('precioConcepto').value);
+	var bandera = false;
+//	var descripcion = nombre + " " + medida + " " + espesor;
+	if (cantidad != 1) {
+		alert('por defecto la cantidad es uno, puede modificarla en la caja de incremento');
+
 	}
-	document.getElementById("total_total").innerHTML = Math.round((totales_n - descuento) * 100) / 100;
+	else if (nombre.length < 2 || medida.length < 1 || espesor.length < 1) {
+		alert('debe ingresar datos validos');
+	}
+	else if (isNaN(precio)) {
+		alert('el precio no es valido');
+	}
+	else {
+		bandera = true;
+	}
+	if (bandera) {
+		var subtotal = cantidad * parseFloat(precio);
+		var impuesto = parseFloat(subtotal) * 0.16;
+		var total_n = parseFloat(subtotal) + parseFloat(impuesto);
+    
+	 var index=0;
+   var largo='N/A';	
+   var peso='N/A';
+   var precioUnitario=subtotal;
+   var importe=total_n;
+   var cantidadKilogramos='N/A';
+    arrayCotizaciones.push({index,cantidad,nombre,medida,espesor,largo,peso,cantidadKilogramos
+      ,precioUnitario,precio,importe})
+      var selectTabla="";
+      var k=0;
+      arrayCotizaciones.map(dato=>{
+        selectTabla+= `
+        <tr>
+        <td style="display:none">
+        <input type="number" class="fa-eraser"  value="${k}" min="1"/> </td>
+        <td> <input type="number" class="fa-eraser calcularCantidad"  value="${dato.cantidad}" min="1"/> </td>
+      
+        <td >${"pzas"}</td> 
+        <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
+       
+      
+        <td > ${dato.peso} </td>
+        <td > ${dato.cantidadKilogramos} </td>
+        <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
+        <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
+        <td > <i class="far fa-trash-alt"></i></td>
+      </tr>
+        ` 
+        k++;
+        localStorage.setItem('cotizacion',JSON.stringify(arrayCotizaciones));
+      
+      document.getElementById('contenedorTablaCotizacion1').innerHTML=selectTabla;
+      
+       })
+       calculateTotalsBySumColumn(); 
+	}
 
 }

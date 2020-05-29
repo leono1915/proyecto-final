@@ -9,7 +9,7 @@ $(function () {
   'use strict'
   /*here call to global functions*/
 
-  listProducts();
+  //listProducts();
  // document.write("<"+"script type='text/javascript' src='dist/js/jquery.dataTables.js'><"+"/script>")
   
  
@@ -27,6 +27,7 @@ $(function () {
                              var cantidad=document.getElementById('kilosTotales').value;
                              //document.getElementById('kilosTotales').value;
                              console.log(nombre,medida,espesor)
+                            // var array=JSON.stringify(localStorage.getItem('cotizacion'));
                              $.ajax({
                                  url:dominio+'productos',
                                  type:'post',
@@ -35,9 +36,10 @@ $(function () {
                                    espesor,
                                    peso,
                                    precio,
-                                   cantidad},
+                                 cantidad  },
                                 success:function(respuesta){
-                                    alert(respuesta.success);
+                                   // alert(respuesta.success);
+                                   console.log(respuesta)
                                 }
                              })
                        
