@@ -26,6 +26,6 @@ Route::get('/cotizador',function (){
     return view('cotizador');
 });
 
-Route::get('/cotizar','CotizaciontemporalController@cotizacionPdf')->name('cotizar.pdf');
+Route::get('cotizar/{id}','CotizaciontemporalController@vistaCotizacion');
 
-Route::get('/venta','CotizaciontemporalController@ventaPdf')->name('venta.pdf');
+//Route::get('/venta','CotizaciontemporalController@ventaPdf')->name('venta.pdf');

@@ -4,7 +4,7 @@ let dominioWeb='http://127.0.0.1:8000/';
 var element;
 var arrayCotizaciones=[{
      index:'',cantidad:'',nombre:'',medida:'',espesor:'',peso:'',largo:'',cantidadKilogramos:'',precioUnitario:'',importe:''
-     ,precio
+     ,precio,descuento
 }];
 const  factorTramo=(1/6.1);
 const iva=.16;
@@ -51,8 +51,9 @@ $(function () {
                              })
                        
                            });
-
-                   // ajax request
+               ///          send customer data to data base
+                   $('#guardarCliente').on('click',guardarCliente);
+               // ajax request
                  
                    $('#click').on('click',function(){
                      
@@ -61,6 +62,7 @@ $(function () {
                      var nombre  =document.getElementById('nombre').value;
                      var medida =document.getElementById('medida').value;
                      var espesor =document.getElementById('espesor').value;
+                     var descuento=document.getElementById('opcionAdescontar').value;
                      var cantidad,largo,cantidadKilogramos,precioUnitario,importe;
                      var costoPerdida=.16;
                      var costoMetros,costoTramos;
@@ -90,14 +92,14 @@ $(function () {
                            costoMetros = ((parseFloat(metros) * (factorTramo)) * parseFloat(e.peso)) * parseFloat(e.precio);
                            subtotalMetros = costoMetros * costoPerdida;
                            costoMetros += subtotalMetros;
-                           var peso=e.peso;
+                           var peso=e.precio;
                            costoTramos= parseFloat(tramos*e.peso*e.precio);
                            cantidadKilogramos=Math.round((e.peso*parseFloat(parseFloat(tramos)+(metros*factorTramo)))*100)/100;
                            precioUnitario=Math.round((costoTramos+costoMetros)*100)/100;
                            precio=precioUnitario;
                            importe=Math.round((precioUnitario+(precioUnitario*iva))*100)/100;
                            arrayCotizaciones.push({index,cantidad,nombre,medida,espesor, largo,peso,cantidadKilogramos,precioUnitario,importe
-                          ,precio});
+                          ,precio,descuento});
                            console.log(arrayCotizaciones)
                       }
                      
@@ -172,7 +174,7 @@ $(function () {
                  
                 
                   <td > ${dato.peso} </td>
-                  <td > ${dato.cantidadKilogramos} </td>
+                  <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
                   <td name="subtotal[]"> ${dato.precioUnitario} </td>
                   <td name="total[]"> ${dato.importe} </td>
                   <td > <i class="far fa-trash-alt"></i></td>
@@ -212,50 +214,49 @@ $(function () {
               $("body").on('click', ".calcularCantidad",calcularNuevaCantidad);
                   
               $('#agregarConcepto').on('click',agregarConcepto);
-              $('#cotizacion').on('click',function(){
+              $('#cotizacion').on('click',function(event){
                  
-               var array2=  `[{
-                        nombre:'perro',
-                        medida:'perra',
-                        espesor:'maldio'
-                 },
-                 {
-                  nombre:'perro',
-                  medida:'perra',
-                  espesor:'maldio'
-           },
-           {
-            nombre:'perro',
-            medida:'perra',
-            espesor:'maldio'
-     }
-               
-                ]`
+              event.preventDefault();
                  
                 var array= localStorage.getItem('cotizacion');
                 var idCliente=document.getElementById('nombreCliente').value;
                 var idUser=document.getElementById('userId').value;
+                var tipodescuento=document.getElementById('opcionAdescontar').value;
                  $.ajax({
-                   url:dominio+'cotizaciones',
+                   url:dominio+'cotizacion',
                    type: 'POST',
                   // dataType:'json',
                  //  contentType: 'json',
-                   data:{array,idUser,idCliente},
+                   data:{array,idUser,idCliente,tipodescuento},
                   // contentType: 'application/json; charset=utf-8',
                    success:function(request){
                        console.log(request)
+                       window.open(dominioWeb+'cotizar/'+request,'_blanck');
+                      /* localStorage.clear();
+                       arrayCotizaciones=[];
+                           document.getElementById('contenedorTablaCotizacion1').innerHTML="";
+                            
+            document.getElementById("total_subtotales").innerHTML = 0.0
+          
+          
+            document.getElementById("total_impuesto").innerHTML =0.0
+          
+            
+            document.getElementById("total_total").innerHTML = 0.0
+            document.getElementById("descuento").innerHTML = 0.0;*/
                    }
                  })
 
               })
 
 
-              /*  $('#cotizacion').on('click',function(event){
-                     event.preventDefault();
+             
+                $('#venta').on('click',function(event){
+                  event.preventDefault();
+                   venta();
+                  
 
-                     console.log("formulario funciona");
-
-                })*/
+             })
 
 
 
@@ -356,7 +357,7 @@ function     listProducts(){
      
     
       <td > ${dato.peso} </td>
-      <td > ${dato.cantidadKilogramos} </td>
+      <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
       <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
       <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
       <td > <i class="far fa-trash-alt"></i></td>
@@ -591,7 +592,7 @@ arrayCotizaciones.map(dato=>{
  
 
   <td > ${dato.peso} </td>
-  <td > ${dato.cantidadKilogramos} </td>
+  <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
   <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
   <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
   <td > <i class="far fa-trash-alt"></i></td>
@@ -636,9 +637,9 @@ function calculateTotalsBySumColumn() {
 
 
 	var subtotales = 0;
-	var array_subtotales = document.getElementsByName("subtotal[]");
+	var array_subtotales = document.getElementsByName("total[]");
 	for (var i = 0; i < array_subtotales.length; i++) {
-		subtotales += parseFloat(array_subtotales[i].innerHTML);
+		subtotales += parseFloat(array_subtotales[i].innerHTML)/1.16;
   }
   
 	document.getElementById("total_subtotales").innerHTML = Math.round(subtotales * 100) / 100;
@@ -695,7 +696,7 @@ function calcularNuevaCantidad(){
    nuevo=cantidad*parseFloat(arrayCotizaciones[posicion].precio*1.16);
    console.log(nuevo,nuevaCantidad)
    arrayCotizaciones[posicion].cantidad=cantidad;
-   arrayCotizaciones[posicion].precioUnitario=nuevaCantidad;
+  // arrayCotizaciones[posicion].precioUnitario=nuevaCantidad;
    arrayCotizaciones[posicion].importe=nuevo;
   /* var start = new Date().getTime();
 	for (var i = 0; i < 1e7; i++) {
@@ -715,7 +716,7 @@ function calcularNuevaCantidad(){
    
    
     <td > ${dato.peso} </td>
-    <td > ${dato.cantidadKilogramos} </td>
+    <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
     <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
     <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
     <td > <i class="far fa-trash-alt"></i></td>
@@ -780,7 +781,7 @@ function agregarConcepto(){
        
       
         <td > ${dato.peso} </td>
-        <td > ${dato.cantidadKilogramos} </td>
+        <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
         <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
         <td name="total[]"> ${Math.round(dato.importe*100)/100} </td>
         <td > <i class="far fa-trash-alt"></i></td>
@@ -796,3 +797,39 @@ function agregarConcepto(){
 	}
 
 }
+                   /////////             save customer function
+
+function guardarCliente(){
+        
+    var nombre
+    
+}
+                                        // function  to make sales and save in data base
+ function venta(){
+     var array=localStorage.getItem('cotizacion');
+     var facturado=document.getElementById('facturado').value;
+     var serie=document.getElementById('inventario').value;
+     var credito=document.getElementById('credito').value;
+     var tipodescuento=document.getElementById('opcionAdescontar').value;
+     var pago=document.getElementById('pago').value;
+     var idCliente=document.getElementById('nombreCliente').value;
+     var idUser=document.getElementById('userId').value;
+     console.log(facturado+' '+serie+' '+credito+' '+tipodescuento+' '+pago)
+     if(facturado=='facturado'||serie=='inventario'||credito=='credito'||facturado=='facturado'){
+       alert('no deje campos sin contestar');
+      return;
+     }
+    
+   $.ajax({
+     url:dominio+'venta',
+     type:'post',
+     data:{array,idCliente,idUser,facturado,
+      serie,
+      credito,
+      tipodescuento,
+      pago},
+      success:function(respuesta){
+        console.log(respuesta);
+      }
+   })
+ }

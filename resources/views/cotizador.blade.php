@@ -429,6 +429,53 @@
   </div>
 </div>
                 <!--   End agregar cliente desde cotizador  -->
+
+                <!--   Modal agregar  Cliente   -->
+ <div class="modal fade" id="opcionVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Venta concretada</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h2>Llene todas las casillas</h2>
+												<div class="popup">
+										<select class="form-control mt-2" name="" id="facturado">
+                    <option value="facturado">FACTURADO</option>
+                      <option value="si">SI</option>
+                      <option value="no">NO</option>
+                      
+                    </select>
+                    <select class="form-control mt-2"  name="" id="pago">
+                    <option value="pago">MÉTODO DE PAGO</option>
+                      <option value="efectivo">EFECTIVO</option>
+                      <option value="tarjeta">TARJETA</option>
+                      <option value="transferencia">TRANFERENCIA</option>
+                    </select>
+                    <select class="form-control mt-2" name="" id="inventario">
+                    <option value="inventario">INVENTARIO</option>
+                      <option value="a">SERIE A</option>
+                      <option value="b">SERIE B</option>
+                    </select>
+                    <select class="form-control mt-2" name="" id="credito">
+                    <option value="credito">CREDITO</option>
+                      <option value="si">SI</option>
+                      <option value="no">NO</option>
+                    </select>
+					  
+           
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id='venta'>Crear venta</button>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="container">
         
       <form  >
@@ -451,7 +498,14 @@
      
      
       <select class="form-control" id="nombreCliente" >
-     
+            
+    
+    </select>
+
+    <select style='display:none' id="telefono">
+    
+    </select>
+    <select style='display:none' id="correo">
     
     </select>
     </div>
@@ -503,10 +557,11 @@
       <input type="number" class="form-control" id="metros" value="0"  min="0">
     </div>
 
-    <!--{{route('cotizar.pdf')}}-->
    
-    <div class="col-md-6 mt-3 mb-4">   <a href="" class="btn btn-dark" id="cotizacion">Generar Cotización</a></div>
-    <div class="col-md-6 mt-3 mb-4">   <a href="{{route('venta.pdf')}}" class="btn btn-dark" id="venta">Vender</a>
+   
+    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-dark" id="cotizacion">Generar Cotización</button></div>
+    <div class="col-md-6 mt-3 mb-4">   <a href='javascript:void(0);'class="btn btn-dark"  data-toggle='modal'
+     data-target='#opcionVenta'>Vender</a>
 
      <button type="button" class="btn btn-dark" style="margin-left:35%" data-toggle="modal" data-target="#clienteNuevo">
  Agregar Cliente
@@ -541,7 +596,7 @@
       <th>Unidad</th>
        <th>Descripción</th>
       
-       <th>Peso Unitario</th>
+       <th>Precio kilo</th>
        <th>Cant KG</th>
        <th>Precio Unitario</th>
        <th>Importe</th>
