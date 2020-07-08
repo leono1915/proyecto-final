@@ -100,8 +100,8 @@
   }
   
   table {
-    width: 67%;
-    
+   
+    width:90%;
     border-collapse: collapse;
     border-spacing: 0;
     margin-bottom: 20px;
@@ -215,6 +215,7 @@
     width: 100%;
   }
   footer {
+    
     color: #777777;
     width: 100%;
     height: 30px;
@@ -229,9 +230,11 @@
   
  </style>
 <body>
+@php(   $datoDes ='')
   <header class="clearfix">
   <div class="division">
     <div id="company">
+    <p style="margin-top:-40px">FOLIO {{$folioFinal}} </p>
     <img src="dist/img/logo.png" alt="BTS">
     </div>
    
@@ -277,8 +280,11 @@
         <tr>
           <th class="no">#</th>
           <th class="desc">DESCRIPCIÓN</th>
+          <th>      LARGO</th>
+          <th> PRECIO KILO</th>
           <th class="unit">PRECIO UNITARIO</th>
           <th class="qty">CANTIDAD</th>
+          <th>   KILOS TOTALES</th>
           <th class="total">TOTAL</th>
         </tr>
       </thead>
@@ -293,8 +299,11 @@
         <tr> 
           <td class="no">{{$i}}</td>
           <td class="desc">{{$producto->descripcion}}</td>
+          <td>       {{$producto->largo}} mts</td>
+          <td>       {{$producto->precio_kilo}}</td>
           <td class="unit">{{$producto->precio}}</td>
           <td class="qty">{{$producto->cantidad}}</td>
+          <td class="qty">{{$producto->kilos}}</td>
           <td class="total">{{$producto->total}}</td>
           </tr>
 
@@ -303,24 +312,25 @@
           {{$iva+=$producto->iva}}
           {{$i++}}
           @endforeach
-      </tbody>
-      <tfoot>
-        <tr>
+          </tbody>
+      <table style="width:40%; float:right; margin-right:12%">
+        <tr >
           <td colspan="2"></td>
           <td colspan="2">SUBTOTAL</td>
-          <td>{{number_format(floatval($subtotal), 2, '.', '')}}</td>
+          <td>${{number_format(floatval($subtotal), 2, '.', '')}}</td>
         </tr>
-        <tr>
+        <tr >
           <td colspan="2"></td>
           <td colspan="2">IVA </td>
-          <td>{{number_format(floatval($iva), 2, '.', '')}}</td>
+          <td>${{number_format(floatval($iva), 2, '.', '')}}</td>
         </tr>$datoDes
         <tr>
           <td colspan="2"></td>
           <td colspan="2">TOTAL</td>
-          <td>{{number_format(floatval($total-$descuento), 2, '.', '')}}</td>
+          <td>${{number_format(floatval($total-$descuento), 2, '.', '')}}</td>
         </tr>
-      </tfoot>
+      </table>
+     
     </table>
     <div id="thanks">Rapidez es nuestro compromiso</div>
     <div id="notices">
@@ -329,6 +339,12 @@
     del vehículo y turno.
     Los tiempos de entrega de placas o cortes serán calculados una vez se haya entregado el anticipo, agradecemos su preferencia.</div>
     </div>
+   <div id="notices">
+   <h2>Observaciones</h2>
+   <div class="notice">
+        {{$observaciones}}
+    </div>
+   </div>
 </main>
 <h3> Firma o sello de aceptación  </h3> 
 </body>

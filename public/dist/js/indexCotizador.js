@@ -2,10 +2,7 @@
 let dominio='http://127.0.0.1:8000/api/';
 let dominioWeb='http://127.0.0.1:8000/';
 var element;
-var arrayCotizaciones=[{
-     index:'',cantidad:'',nombre:'',medida:'',espesor:'',peso:'',largo:'',cantidadKilogramos:'',precioUnitario:'',importe:''
-     ,precio,descuento
-}];
+var arrayCotizaciones=[];
 const  factorTramo=(1/6.1);
 const iva=.16;
 //const function to filter repeats
@@ -54,7 +51,7 @@ $(function () {
                ///          send customer data to data base
                    $('#guardarCliente').on('click',guardarCliente);
                // ajax request
-                 
+                                                          //              cotizador
                    $('#click').on('click',function(){
                      
                      var tramos  =document.getElementById('tramos').value;
@@ -62,11 +59,27 @@ $(function () {
                      var nombre  =document.getElementById('nombre').value;
                      var medida =document.getElementById('medida').value;
                      var espesor =document.getElementById('espesor').value;
+                     var pulgadas=2.54;
+                     var largo;
                      var descuento=document.getElementById('opcionAdescontar').value;
                      var cantidad,largo,cantidadKilogramos,precioUnitario,importe;
                      var costoPerdida=.16;
                      var costoMetros,costoTramos;
-                     console.log(tramos+" aa "+metros)
+                     if(document.getElementById('pulgada').checked){  
+                          
+                        metros=metros*pulgadas;
+                        metros=metros/100;
+                     }
+                     if(metros==0&&tramos>0){
+                       largo=6.1;
+                     }
+                     else if(metros>0&&tramos>0){
+                    alert('Solo puede cotizar metros o tramos no puede combinarlos');
+                       return;
+                      
+                     }else{
+                      largo=metros;
+                     }
 			//var cantidadDescontar=parseInt(cantidad)+(parseFloat(metros) * factorTramo);
 		               	 var subtotalMetros;
                      var index=0;
@@ -88,6 +101,7 @@ $(function () {
                       if(e.nombre+e.medida+e.espesor=== nombre+medida+espesor){
                            index=e.id;  
                          //  console.log(e)
+                          
                            cantidad=1;
                            costoMetros = ((parseFloat(metros) * (factorTramo)) * parseFloat(e.peso)) * parseFloat(e.precio);
                            subtotalMetros = costoMetros * costoPerdida;
@@ -99,7 +113,7 @@ $(function () {
                            precio=precioUnitario;
                            importe=Math.round((precioUnitario+(precioUnitario*iva))*100)/100;
                            arrayCotizaciones.push({index,cantidad,nombre,medida,espesor, largo,peso,cantidadKilogramos,precioUnitario,importe
-                          ,precio,descuento});
+                          ,precio,descuento,largo});
                            console.log(arrayCotizaciones)
                       }
                      
@@ -128,7 +142,7 @@ $(function () {
                                 <td >${"pzas"}</td> 
                                 <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
                                
-                               
+                                <td> ${dato.largo} mts  </td>
                                 <td > ${dato.peso} </td>
                                 <td > ${dato.cantidadKilogramos}  </td>
                                 <td name="subtotal[]"> ${dato.precioUnitario} </td>
@@ -148,7 +162,7 @@ $(function () {
 
              $('#cotizarPlaca').on('click',calculoDePlacas);
 
-
+//                                                                  method to delete one item of list
             $("body").on('click', ".fa-trash-alt",function(){
                 var a = this.parentNode.parentNode;
                var posicion=a.getElementsByTagName('td')[0].getElementsByTagName('input')[0].value;
@@ -172,7 +186,7 @@ $(function () {
                   <td >${"pzas"}</td> 
                   <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
                  
-                
+                  <td> ${dato.largo} mts </td>
                   <td > ${dato.peso} </td>
                   <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
                   <td name="subtotal[]"> ${dato.precioUnitario} </td>
@@ -214,6 +228,8 @@ $(function () {
               $("body").on('click', ".calcularCantidad",calcularNuevaCantidad);
                   
               $('#agregarConcepto').on('click',agregarConcepto);
+
+                                //                            function to add a new quotation
               $('#cotizacion').on('click',function(event){
                  
               event.preventDefault();
@@ -222,12 +238,18 @@ $(function () {
                 var idCliente=document.getElementById('nombreCliente').value;
                 var idUser=document.getElementById('userId').value;
                 var tipodescuento=document.getElementById('opcionAdescontar').value;
+                var modalObservaciones=document.getElementById('modalObservaciones').value;
+               
+                if(array.length==2){
+
+                  return;
+                }
                  $.ajax({
                    url:dominio+'cotizacion',
                    type: 'POST',
                   // dataType:'json',
                  //  contentType: 'json',
-                   data:{array,idUser,idCliente,tipodescuento},
+                   data:{array,idUser,idCliente,tipodescuento,modalObservaciones},
                   // contentType: 'application/json; charset=utf-8',
                    success:function(request){
                        console.log(request)
@@ -355,7 +377,7 @@ function     listProducts(){
       <td >${"pzas"}</td> 
       <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
      
-    
+      <td> ${dato.largo} mts </td>
       <td > ${dato.peso} </td>
       <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
       <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
@@ -589,8 +611,8 @@ arrayCotizaciones.map(dato=>{
   <td >${"pzas"}</td> 
   <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
  
- 
-
+  
+  <td> ${dato.largo} mts  </td>
   <td > ${dato.peso} </td>
   <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
   <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
@@ -714,7 +736,7 @@ function calcularNuevaCantidad(){
     <td >${"pzas"}</td> 
     <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
    
-   
+    <td> ${dato.largo} mts  </td>
     <td > ${dato.peso} </td>
     <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
     <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
@@ -779,7 +801,7 @@ function agregarConcepto(){
         <td >${"pzas"}</td> 
         <td >${dato.nombre+" de "+dato.medida+" en "+dato.espesor}</td> 
        
-      
+        <td> ${dato.largo} mts </td>
         <td > ${dato.peso} </td>
         <td > ${Math.round((dato.cantidadKilogramos*dato.cantidad)*100)/100} </td>
         <td name="subtotal[]"> ${Math.round(dato.precioUnitario*100)/100} </td>
@@ -814,6 +836,7 @@ function guardarCliente(){
      var pago=document.getElementById('pago').value;
      var idCliente=document.getElementById('nombreCliente').value;
      var idUser=document.getElementById('userId').value;
+     var modalObservaciones=document.getElementById('modalObservaciones').value;
      console.log(facturado+' '+serie+' '+credito+' '+tipodescuento+' '+pago)
      if(facturado=='facturado'||serie=='inventario'||credito=='credito'||facturado=='facturado'){
        alert('no deje campos sin contestar');
@@ -827,7 +850,8 @@ function guardarCliente(){
       serie,
       credito,
       tipodescuento,
-      pago},
+      pago,
+      modalObservaciones},
       success:function(respuesta){
         console.log(respuesta);
       }

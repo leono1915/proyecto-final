@@ -97,6 +97,8 @@ class CotizaciontemporalController extends Controller
           $model->kilos=floatval($f->cantidadKilogramos);
           $model->cantidadDescontar=1;   
           $model->id_user=$idUser;
+          $model->largo=$f->largo;
+          $model->precio_kilo=$f->peso;
           $model->save();
          }
         }catch(\Exception $e){
@@ -141,8 +143,9 @@ class CotizaciontemporalController extends Controller
        // dump($data);
         $rutaGuardado='cotizacion/';
         $productos=$cotizaciones;
+        $observaciones=$request->modalObservaciones;
         $clientes=Clientes::where('id',$idCliente)->get();
-        $pdf=PDF::loadView('pdf.cotizacion',compact('productos','clientes','folioFinal'));
+        $pdf=PDF::loadView('pdf.cotizacion',compact('productos','clientes','folioFinal','observaciones'));
         $output=$pdf->download();
         $nombreArchivo=$folioFinal.'.pdf';
         file_put_contents( $rutaGuardado.$nombreArchivo, $output);

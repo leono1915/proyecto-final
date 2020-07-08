@@ -22,7 +22,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
-
+   function cerrar(){
+     document.getElementById('modalObservaciones').value='';
+   }
 	function mensaje2() {
 
 		var ar=mensaje();
@@ -430,7 +432,7 @@
 </div>
                 <!--   End agregar cliente desde cotizador  -->
 
-                <!--   Modal agregar  Cliente   -->
+                <!--   Modal vender  -->
  <div class="modal fade" id="opcionVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -476,6 +478,33 @@
     </div>
   </div>
 </div>
+
+        <!-- Modal Agregar observaciones-->
+ <div class="modal fade" id="observaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Observaciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h2></h2>
+												<div class="popup">
+										
+					  <textarea class="form-control" type="textarea" value="" rows='5' id="modalObservaciones"> </textarea>
+					 
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick='cerrar();' data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <!--  End agregar observaciones-->
       <div class="container">
         
       <form  >
@@ -558,8 +587,10 @@
     </div>
 
    
-   
-    <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-dark" id="cotizacion">Generar Cotización</button></div>
+    
+    <div class="col-md-6 mt-3 mb-4">  
+    
+     <button class="btn btn-dark" id="cotizacion">Generar Cotización</button></div>
     <div class="col-md-6 mt-3 mb-4">   <a href='javascript:void(0);'class="btn btn-dark"  data-toggle='modal'
      data-target='#opcionVenta'>Vender</a>
 
@@ -579,11 +610,15 @@
         Agree to terms and conditions
       </label>
     </div>-->
- 
+    <input type="checkbox" name="opcionImprimir" id="opcionImprimir" > S/I
+   
+    <input type="checkbox" style="margin-left:20px" name="pulgadas" id="pulgada" > P
 </form>
 <div class="col-md-6 mt-3 mb-4">   <button class="btn btn-danger" id="click">Calcular</button>
 
 <button class="btn btn-danger" id="limpiarTabla">limpiar Tabla</button>
+<button class="btn btn-danger"  data-toggle='modal'
+     data-target='#observaciones'>Observaciones</button>
 </div>
 
       </div>
@@ -595,7 +630,7 @@
       <th> Cantidad</th>
       <th>Unidad</th>
        <th>Descripción</th>
-      
+      <th> Largo </th>
        <th>Precio kilo</th>
        <th>Cant KG</th>
        <th>Precio Unitario</th>
