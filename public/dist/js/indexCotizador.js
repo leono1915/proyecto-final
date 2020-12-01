@@ -244,7 +244,8 @@ $(function () {
 
                   return;
                 }
-                 $.ajax({
+                 $.ajax({cdapp
+                  php
                    url:dominio+'cotizacion',
                    type: 'POST',
                   // dataType:'json',
